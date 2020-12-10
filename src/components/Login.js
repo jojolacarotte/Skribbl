@@ -1,40 +1,32 @@
 import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketProvider';
 
 export default function Login() {
 
+    const history = useHistory();
     const [pseudo, setPseudo] = useState();
     const [roomCode, setRoomCode] = useState();
     const socket = useSocket();
 
     function joinGame() {
-        socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
+      // socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
+  
+      //   if(!success)
+      //     return
+  
+      //   console.log('Joined game. Players:', players, 'Game status:', status, 'PlayerID:', playerID)
+  
+      // })
+      history.push('/waitingRoom');
+    }
     
-          if(!success)
-            return
-    
-          console.log('Joined game. Players:', players, 'Game status:', status, 'PlayerID:', playerID)
-    
-          // socket.Game = {
-    
-          //   code: this.state.gameCode,
-          //   wordsCount: wordsCount,
-          //   status: status,
-          //   players: players,
-          //   playerData: { id: playerID, name: this.state.name, gameCode: this.state.gameCode, points: 0 }
-    
-          // }
-    
-          // this.setState({ redirectToWaiting: true })
-    
-        })
-      }
-    
-      function createGame() {
-        setRoomCode(1);
-    
-        joinGame()
-      }
+    function createGame() {
+
+      setRoomCode(1);
+  
+      joinGame()
+    }
 
     return (
         <div className="accueil">
