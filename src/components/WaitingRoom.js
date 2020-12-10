@@ -1,7 +1,8 @@
+import PlayersList from './PlayersList';
 
 export default function WaitingRoom() {
 
     return (
-        <h1>Cool</h1>
+        <PlayersList></PlayersList>
     );
 }
