@@ -4,7 +4,8 @@ import {
 
 
 const initialState = [{
-	text: 'Je dois créer mon state initial',
+    text: 'Je dois créer mon state initial',
+    pseudo: 'test1',
 	completed: false,
 	id: 10
 }]
@@ -17,7 +18,9 @@ export default function players (state = initialState, action) {
 				{
 					id: state.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1,
 					completed: false,
-					text: action.text
+					text: action.text,
+					pseudo: action.pseudo,
+					idSocket: action.idSocket
 				}
             ]
         default:

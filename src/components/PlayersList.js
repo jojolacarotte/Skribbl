@@ -1,18 +1,33 @@
-import {useGame} from "./../contexts/GameProvider"
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useSocket } from '../contexts/SocketProvider';
 
-export default function PlayerList(props) {
+import { addPlayer } from '../actions';
 
-    const [game, setGame] = useGame()
+export default function PlayerList() {
+
+    const players = useSelector(state => state.players)
+    const socket = useSocket()
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (socket == null) return
+    
+        socket.on('playerJoin', (pseudo, playerID) => {
+            dispatch(addPlayer(null, pseudo, playerID))
+            console.log(`${pseudo} joined. Players: `, players);
+        })
+    }, [socket])
 
     return (
 
         <div className="Players">
-            <h1 className="title">Joueurs</h1>
+            <h1 className="title">Joueurs ({players.length})</h1>
             <ul>
-                {Object.keys(props.players).map(key =>
+                {Object.keys(players).map(key =>
                     <li key={key}>
-                        <h1>{props.players[key].name}</h1>
-                        <h2>{props.players[key].points}</h2>
+                        <h1>{players[key].pseudo}</h1>
+                        <h2>{players[key].points} {players[key].points > 0 ? 'points' : 'point'}</h2>
                     </li>
                 )}
             </ul>

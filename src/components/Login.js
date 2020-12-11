@@ -2,25 +2,19 @@ import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketProvider';
-import { useGame } from '../contexts/GameProvider';
-import PropTypes from 'prop-types'
 
-import Socket from '../game/Socket.js'
 import { addPlayer } from '../actions';
 
-export default function Login({play, actions}) {
+export default function Login() {
 
   const socket = useSocket();
-  const [game, setGame] = useGame();
   const history = useHistory();
+  const players = useSelector(state => state.players)
   const [pseudo, setPseudo] = useState("");
   const [roomCode, setRoomCode] = useState(1);
-
-  const counter = useSelector(state => console.log('state', state))
   const dispatch = useDispatch()
 
-  console.log('actions', actions)
-  console.log('play', play)
+  console.log('players', players)
 
   function joinGame() {
     socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
@@ -28,20 +22,9 @@ export default function Login({play, actions}) {
       if(!success)
         return
 
-      console.log(`Joined game. Players:, ${players}, Game status:, ${status}, PlayerID:, ${playerID}`)
-  
-      // Replace by Redux
-      Socket.Game = {
+      console.log(`Joined game.🧻 Players:, ${players}, Game status: ${status}, Room ${roomCode}, PlayerID:, ${playerID}`)
 
-        code: roomCode,
-        wordsCount: wordsCount,
-        status: status,
-        players: players,
-        playerData: { id: playerID, name: pseudo, gameCode: roomCode, points: 0 }
-
-      }
-
-      dispatch(addPlayer(pseudo))
+      dispatch(addPlayer(roomCode, pseudo, playerID))
   
       history.push('/waitingRoom');
     })
@@ -68,8 +51,4 @@ export default function Login({play, actions}) {
 
     </div>
   );
-}
-
-Login.propTypes = {
-  actions: PropTypes.object.isRequired,
 }
