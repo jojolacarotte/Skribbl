@@ -7,7 +7,7 @@ export function useGame() {
 }
 
 export function GameProvider({children}) {
-  const gameState = useState("")
+  const gameState = useState(0)
 
   return (
     <GameContext.Provider value={gameState}>

@@ -1,17 +1,17 @@
-import { useState } from 'react';
+import { useImperativeHandle, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketProvider';
 import { useGame } from '../contexts/GameProvider';
 
 import Socket from '../game/Socket.js'
 
-export default function Login(props) {
+export default function Login() {
 
   const socket = useSocket();
-  const [game, setGame] = useGame(props.gameData);
+  const [game, setGame] = useGame();
   const history = useHistory();
   const [pseudo, setPseudo] = useState("");
-  const [roomCode, setRoomCode] = useState("");
+  const [roomCode, setRoomCode] = useState(1);
 
   function joinGame() {
     socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
@@ -40,9 +40,8 @@ export default function Login(props) {
   
   function createGame() {
 
-    setRoomCode(1);
-
     joinGame()
+
   }
 
   return (

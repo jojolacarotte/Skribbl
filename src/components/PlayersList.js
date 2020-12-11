@@ -1,4 +1,8 @@
+import {useGame} from "./../contexts/GameProvider"
+
 export default function PlayerList(props) {
+
+    const [game, setGame] = useGame()
 
     return (
 
