@@ -20,7 +20,8 @@ export default function players (state = initialState, action) {
 					completed: false,
 					text: action.text,
 					pseudo: action.pseudo,
-					idSocket: action.idSocket
+					idSocket: action.idSocket,
+					idPlayer: action.idPlayer
 				}
             ]
         default:

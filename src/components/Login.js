@@ -14,8 +14,6 @@ export default function Login() {
   const [roomCode, setRoomCode] = useState(1);
   const dispatch = useDispatch()
 
-  console.log('players', players)
-
   function joinGame() {
     socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
 
@@ -24,7 +22,9 @@ export default function Login() {
 
       console.log(`Joined game.🧻 Players:, ${players}, Game status: ${status}, Room ${roomCode}, PlayerID:, ${playerID}`)
 
-      dispatch(addPlayer(roomCode, pseudo, playerID))
+      Object.keys(players).map(key => {
+        dispatch(addPlayer(roomCode, players[key].name, null,playerID))
+      })
   
       history.push('/waitingRoom');
     })

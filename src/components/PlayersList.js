@@ -14,8 +14,12 @@ export default function PlayerList() {
         if (socket == null) return
     
         socket.on('playerJoin', (pseudo, playerID) => {
-            dispatch(addPlayer(null, pseudo, playerID))
-            console.log(`${pseudo} joined. Players: `, players);
+            const hasAlready = players.some((el)=> el === playerID)
+
+            if (!hasAlready) {
+                dispatch(addPlayer(null, pseudo, null, playerID))
+                console.log(`${pseudo} joined. Players: `, players);
+            }
         })
     }, [socket])
 
