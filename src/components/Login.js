@@ -1,17 +1,26 @@
-import { useImperativeHandle, useState } from 'react';
+import { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketProvider';
 import { useGame } from '../contexts/GameProvider';
+import PropTypes from 'prop-types'
 
 import Socket from '../game/Socket.js'
+import { addPlayer } from '../actions';
 
-export default function Login() {
+export default function Login({play, actions}) {
 
   const socket = useSocket();
   const [game, setGame] = useGame();
   const history = useHistory();
   const [pseudo, setPseudo] = useState("");
   const [roomCode, setRoomCode] = useState(1);
+
+  const counter = useSelector(state => console.log('state', state))
+  const dispatch = useDispatch()
+
+  console.log('actions', actions)
+  console.log('play', play)
 
   function joinGame() {
     socket.emit('joinGame', pseudo, roomCode, (success, players, status, playerID, wordsCount) => {
@@ -32,7 +41,7 @@ export default function Login() {
 
       }
 
-      console.log('game', Socket.Game)
+      dispatch(addPlayer(pseudo))
   
       history.push('/waitingRoom');
     })
@@ -59,4 +68,8 @@ export default function Login() {
 
     </div>
   );
+}
+
+Login.propTypes = {
+  actions: PropTypes.object.isRequired,
 }

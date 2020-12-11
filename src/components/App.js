@@ -4,24 +4,30 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import { createStore } from 'redux'
+import { Provider } from 'react-redux'
 import { SocketProvider } from '../contexts/SocketProvider';
 import { GameProvider } from '../contexts/GameProvider';
 import Login from './Login';
+import rootReducer from './../reducers'
 import WaitingRoom from './WaitingRoom';
 
+const store = createStore(rootReducer)
 
 function App() {
 
   return (
     <Router>
-      <SocketProvider>
-        <GameProvider>
-          <Switch>
-            <Route path="/" exact component={ Login }/>
-            <Route path="/waitingRoom" component={ WaitingRoom }/>
-          </Switch>
-        </GameProvider>
-      </SocketProvider>
+      <Provider store={store}>
+        <SocketProvider>
+          <GameProvider>
+            <Switch>
+              <Route path="/" exact component={ Login }/>
+              <Route path="/waitingRoom" component={ WaitingRoom }/>
+            </Switch>
+          </GameProvider>
+        </SocketProvider>
+      </Provider>
     </Router>
   );
 }
