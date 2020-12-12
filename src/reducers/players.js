@@ -1,14 +1,10 @@
 import {
 	ADD_PLAYER,
+	REMOVE_PLAYER,
 } from '../constants/ActionsTypes'
 
 
-const initialState = [{
-    text: 'Je dois créer mon state initial',
-    pseudo: 'test1',
-	completed: false,
-	id: 10
-}]
+const initialState = []
 
 export default function players (state = initialState, action) {
 	switch(action.type) {
@@ -23,7 +19,13 @@ export default function players (state = initialState, action) {
 					idSocket: action.idSocket,
 					idPlayer: action.idPlayer
 				}
-            ]
+			]
+		case REMOVE_PLAYER:
+			console.log('rec player', state)
+			console.log('action id', action.idPlayer)
+			return state.filter((player) => {
+				return player.pseudo !== action.idPlayer
+			})
         default:
             return state
     }

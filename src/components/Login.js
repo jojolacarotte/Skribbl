@@ -7,9 +7,9 @@ import { addPlayer } from '../actions';
 
 export default function Login() {
 
+  const playersList = useSelector(state => state.players)
   const socket = useSocket();
   const history = useHistory();
-  const players = useSelector(state => state.players)
   const [pseudo, setPseudo] = useState("");
   const [roomCode, setRoomCode] = useState(1);
   const dispatch = useDispatch()
@@ -22,8 +22,11 @@ export default function Login() {
 
       console.log(`Joined game.🧻 Players:, ${players}, Game status: ${status}, Room ${roomCode}, PlayerID:, ${playerID}`)
 
-      Object.keys(players).map(key => {
-        dispatch(addPlayer(roomCode, players[key].name, null,playerID))
+      Object.keys(players).forEach(key => {
+        const hasAlready = playersList.some((el)=> el.pseudo === pseudo)
+        if (!hasAlready) {
+          dispatch(addPlayer(roomCode, players[key].name, null,playerID))
+        }
       })
   
       history.push('/waitingRoom');

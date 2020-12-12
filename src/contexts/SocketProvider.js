@@ -3,6 +3,7 @@ import io from 'socket.io-client'
 
 const SocketContext = React.createContext()
 
+// Petit hook
 export function useSocket() {
   return useContext(SocketContext)
 }

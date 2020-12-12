@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useSocket } from '../contexts/SocketProvider';
 
-import { addPlayer } from '../actions';
+import { addPlayer, removePlayer } from '../actions';
 
 export default function PlayerList() {
 
@@ -10,18 +10,25 @@ export default function PlayerList() {
     const socket = useSocket()
     const dispatch = useDispatch()
 
+    console.log('players list', players)
+
     useEffect(() => {
-        if (socket == null) return
+        if (socket == null || players.length === 0) return
     
         socket.on('playerJoin', (pseudo, playerID) => {
-            const hasAlready = players.some((el)=> el === playerID)
+            const hasAlready = players.some((el)=> el.pseudo === pseudo)
 
             if (!hasAlready) {
                 dispatch(addPlayer(null, pseudo, null, playerID))
                 console.log(`${pseudo} joined. Players: `, players);
             }
         })
-    }, [socket])
+
+        socket.on('playerLeave', (pseudo, playerID) => {
+            dispatch(removePlayer(pseudo))
+            console.log(`${pseudo} left.`);
+        })
+    },[socket])
 
     return (
 

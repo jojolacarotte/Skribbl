@@ -7,3 +7,8 @@ export const addPlayer = (text, pseudo, idSocket, idPlayer) => ({
 	text,
 	idPlayer
 })
+
+export const removePlayer = (idPlayer) => ({
+	type: types.REMOVE_PLAYER,
+	idPlayer
+})
