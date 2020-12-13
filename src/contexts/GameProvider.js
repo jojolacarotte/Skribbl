@@ -6,9 +6,7 @@ import { addPlayer, removePlayer } from '../actions';
 
 const GameContext = React.createContext()
 
-export function useGame() {
-  return useContext(GameContext)
-}
+export const useGameuseCanvas = () => useContext(GameContext);
 
 export function GameProvider({children}) {
   const gameState = useState(0)

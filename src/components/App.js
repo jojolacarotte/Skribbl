@@ -8,6 +8,7 @@ import { createStore } from 'redux'
 import { Provider } from 'react-redux'
 import { SocketProvider } from '../contexts/SocketProvider';
 import { GameProvider } from '../contexts/GameProvider';
+import { CanvasProvider } from '../contexts/CanvasProvider';
 import Login from './Login';
 import rootReducer from './../reducers'
 import WaitingRoom from './WaitingRoom';
@@ -23,7 +24,9 @@ function App() {
           <GameProvider>
             <Switch>
               <Route path="/" exact component={ Login }/>
-              <Route path="/waitingRoom" component={ WaitingRoom }/>
+              <CanvasProvider>
+                <Route path="/waitingRoom" component={ WaitingRoom }/>
+              </CanvasProvider>
             </Switch>
           </GameProvider>
         </SocketProvider>

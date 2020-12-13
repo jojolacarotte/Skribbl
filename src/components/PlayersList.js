@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 
+
 export default function PlayerList() {
 
     const players = useSelector(state => state.players)
@@ -17,6 +18,5 @@ export default function PlayerList() {
                 )}
             </ul>
         </div>
-
     );
 }

@@ -4,9 +4,7 @@ import io from 'socket.io-client'
 const SocketContext = React.createContext()
 
 // Petit hook
-export function useSocket() {
-  return useContext(SocketContext)
-}
+export const useSocket = () => useContext(SocketContext);
 
 export function SocketProvider({children }) {
   const [socket, setSocket] = useState()
