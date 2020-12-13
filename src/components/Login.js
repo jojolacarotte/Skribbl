@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { useSocket } from '../contexts/SocketProvider';
 
 import { addPlayer } from '../actions';
+import { Button } from './Button';
 
 export default function Login() {
 
@@ -44,9 +45,9 @@ export default function Login() {
       <input type="text" placeholder="Pseudo" name="pseudo" value={pseudo} onChange={e => setPseudo(e.target.value)} />
       <input type="text" placeholder="Code Room" name="roomCode" value={roomCode} onChange={e => setRoomCode(e.target.value)} />
 
-      <button name="join" onClick={joinGame}>Rejoindre une partie !</button>
+      <Button primary name="join" onClick={joinGame}>Rejoindre une partie !</Button>
 
-      <button name="create" onClick={createGame}>Créer une partie !</button>
+      <Button primary name="create" onClick={createGame}>Créer une partie !</Button>
 
     </div>
   );
