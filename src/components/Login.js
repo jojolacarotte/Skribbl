@@ -23,10 +23,7 @@ export default function Login() {
       console.log(`Joined game.🧻 Players:, ${players}, Game status: ${status}, Room ${roomCode}, PlayerID:, ${playerID}`)
 
       Object.keys(players).forEach(key => {
-        const hasAlready = playersList.some((el)=> el.pseudo === pseudo)
-        if (!hasAlready) {
-          dispatch(addPlayer(roomCode, players[key].name, null,playerID))
-        }
+        dispatch(addPlayer(roomCode, players[key].name, null,playerID))
       })
   
       history.push('/waitingRoom');
