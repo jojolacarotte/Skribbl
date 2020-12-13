@@ -7,7 +7,6 @@ import { addPlayer } from '../actions';
 
 export default function Login() {
 
-  const playersList = useSelector(state => state.players)
   const socket = useSocket();
   const history = useHistory();
   const [pseudo, setPseudo] = useState("");
