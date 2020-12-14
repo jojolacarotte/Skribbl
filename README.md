@@ -4,7 +4,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 | Aligné à gauche  | Centré          | Aligné à droite |
 | :--------------- |:---------------:| -----:|
-| ![alt text](https://styled-components.com/logo.png "Title")  | ![alt text](https://benoitkovarz.fr/pictures/logo-react-redux.png "Title")![alt text]| ![alt text](https://raw.githubusercontent.com/alDuncanson/react-hooks-snippets/master/icon.png "Title") |
+| ![alt text](https://styled-components.com/logo.png "Title")  | ![alt text](https://benoitkovarz.fr/pictures/logo-react-redux.png "Title")| <img src="https://raw.githubusercontent.com/alDuncanson/react-hooks-snippets/master/icon.png" alt="Kitten"
+	title="A cute kitten" width="150" height="150" />|
 
 ## Available Scripts
 
