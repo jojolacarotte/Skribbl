@@ -2,6 +2,8 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+| Aligné à gauche  | Centré          | Aligné à droite |
+| :--------------- |:---------------:| -----:|
 | ![alt text](https://styled-components.com/logo.png "Title")  | ![alt text](https://benoitkovarz.fr/pictures/logo-react-redux.png "Title")![alt text]| ![alt text](https://raw.githubusercontent.com/alDuncanson/react-hooks-snippets/master/icon.png "Title") |
 
 ## Available Scripts
