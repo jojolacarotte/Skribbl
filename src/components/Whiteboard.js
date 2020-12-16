@@ -9,31 +9,21 @@ export default function Whiteboard() {
         startDrawing,
         finishDrawing,
         draw,
-        drawCanvas
+        difRef
       } = useCanvas();
     
     useEffect(() => {
         prepareCanvas();
     }, []);
 
-    function throttle(callback, delay) {
-        var previousCall = new Date().getTime();
-        return function() {
-          var time = new Date().getTime();
-    
-          if ((time - previousCall) >= delay) {
-            previousCall = time;
-            callback.apply(null, arguments);
-          }
-        };
-      }
-
     return (
-        <canvas
-            onMouseDown={startDrawing}
-            onMouseUp={finishDrawing}
-            onMouseMove={throttle(draw, 1)}
-            ref={canvasRef}
-        />
+        <div ref={difRef}>
+            <canvas
+                onMouseDown={startDrawing}
+                onMouseUp={finishDrawing}
+                onMouseMove={draw}
+                ref={canvasRef}
+            />
+        </div>
     )
 }

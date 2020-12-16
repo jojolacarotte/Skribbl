@@ -7,11 +7,13 @@ export const useCanvas = () => useContext(CanvasContext);
 
 export function CanvasProvider({children}) {
     const socket = useSocket();
+    const divRef = useRef(null);
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
 
     let isDrawing = false; 
     let prevPos = {x : 0, y:0}
+    let rect;
 
     socket.on('receiveDrawingData', (drawingData, drawerWidth) => {
       if (canvasRef.current === null)
@@ -23,24 +25,26 @@ export function CanvasProvider({children}) {
 
     const prepareCanvas = () => {
         const canvas = canvasRef.current
-        canvas.width = window.innerWidth * 2;
-        canvas.height = window.innerHeight * 2;
-        canvas.style.width = `${window.innerWidth}px`;
+        canvas.width = window.innerWidth;
+        canvas.height = (window.innerHeight * 2);
+        canvas.style.width = `${window.innerWidth/2}px`;
         canvas.style.height = `${window.innerHeight}px`;
-    
+
         const context = canvas.getContext("2d")
+        rect = canvas.getBoundingClientRect();
+        console.log('rect',  rect)
         context.scale(2, 2);
         context.lineCap = "round";
         context.strokeStyle = "black";
         context.lineWidth = 5;
         contextRef.current = context;
     };
-    
 
   const startDrawing = ({ nativeEvent }) => {
     const { offsetX, offsetY } = nativeEvent;
-    let x = nativeEvent.clientX||nativeEvent.touches[0].clientX;
-    let y = nativeEvent.clientY||nativeEvent.touches[0].clientY;
+    console.log('nativeEvent', nativeEvent)
+    let x = nativeEvent.clientX - rect.left||nativeEvent.touches[0].clientX;
+    let y = nativeEvent.clientY - rect.top||nativeEvent.touches[0].clientY;
     prevPos.x = x;
     prevPos.y = y;
     isDrawing = true;
@@ -58,8 +62,8 @@ export function CanvasProvider({children}) {
 
     drawLine(prevPos.x, prevPos.y, nativeEvent.clientX||nativeEvent.touches[0].clientX, nativeEvent.clientY||nativeEvent.touches[0].clientY);
 
-    let x = nativeEvent.clientX||nativeEvent.touches[0].clientX;
-    let y = nativeEvent.clientY||nativeEvent.touches[0].clientY;
+    let x = nativeEvent.clientX - rect.left||nativeEvent.touches[0].clientX;
+    let y = nativeEvent.clientY - rect.top||nativeEvent.touches[0].clientY;
     prevPos.x = x;
     prevPos.y = y;
   };
@@ -69,7 +73,7 @@ export function CanvasProvider({children}) {
     let h = canvasRef.current.height;
     contextRef.current.beginPath();
     contextRef.current.moveTo(x0, y0);
-    contextRef.current.lineTo(x1, y1);
+    contextRef.current.lineTo(x1  - rect.left, y1- rect.top);
     contextRef.current.stroke();
     contextRef.current.closePath();
     if (emit) { return; }
@@ -103,7 +107,7 @@ export function CanvasProvider({children}) {
         finishDrawing,
         clearCanvas,
         draw,
-        drawCanvas,
+        divRef
       }}
     >
       {children}

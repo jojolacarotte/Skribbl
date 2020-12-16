@@ -5,3 +5,16 @@
   align-items: center;
   height: 100%;
 }
+
+.waiting {
+  display: flex;
+}
+
+/* .canvas {
+  width: 900px;
+  height: 900px;
+} */
+canvas {
+  border-color: blue;
+  border-style: solid;
+}

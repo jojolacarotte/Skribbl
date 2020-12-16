@@ -5,7 +5,7 @@ import Whiteboard from './Whiteboard';
 export default function WaitingRoom() {
 
     return (
-        <div>
+        <div class="waiting">
             <PlayersList></PlayersList>
             <Whiteboard></Whiteboard>
         </div>
