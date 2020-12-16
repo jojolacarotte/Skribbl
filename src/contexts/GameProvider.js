@@ -30,6 +30,8 @@ export function GameProvider({children}) {
           dispatch(removePlayer(pseudo))
           console.log(`${pseudo} left.`);
       })
+
+
   },[socket])
 
   return (
